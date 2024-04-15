@@ -61,5 +61,9 @@ public class DipendentiService {
         found.setEmail(payload.getEmail());
         return dipendenteDAO.save(found);
     }
+    //GET BY EMAIl
+    public Dipendente findByEmail(String email){
+        return dipendenteDAO.findByEmail(email).orElseThrow(()->new NotFoundEx ("nessun dipendente con questa email "+ email));
+    }
 
 }

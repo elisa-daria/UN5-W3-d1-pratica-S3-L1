@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class AuthenticationDip {
     @Autowired
-    DipendenteDAO dipendenteDAO;
+    DipendentiService dipendentiService;
     @Autowired
     JWTTools jwtTools;
 
     public String generateToken(DipendenteLoginDTO body){
-        Dipendente dipendente=this.dipendenteDAO.findByEmail(body.email()).orElseThrow(()->new NotFoundEx ("nessun dipendente con questa email "+ body.email()));
+        Dipendente dipendente=this.dipendentiService.findByEmail(body.email());
         if(dipendente.getPw().equals(body.pw())){
             return jwtTools.createToken(dipendente);
         }else {
