@@ -32,15 +32,7 @@ public class DipendentiController {
     ) {
         return dipendentiService.getDipendenti(page, size, sortBy);
     }
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public DipendenteRespDTO savingD(@RequestBody @Validated DipendenteRequestDTO payload, BindingResult validation)throws Exception{
-        if(validation.hasErrors()){
-            throw new BadRequestEx(validation.getAllErrors());
-        }
-        Dipendente newD=dipendentiService.save(payload);
-        return new DipendenteRespDTO(newD.getId());
-    }
+
     //http://localhost:3002/dipendenti/{id}
     @GetMapping("/{id}")
     public Dipendente findById(@PathVariable long id) {
