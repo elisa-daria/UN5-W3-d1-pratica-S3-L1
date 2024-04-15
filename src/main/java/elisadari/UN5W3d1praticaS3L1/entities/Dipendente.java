@@ -20,6 +20,7 @@ public class Dipendente {
     private String name;
     private String surname;
     private String email;
+    private String pw;
     private String profile_pic;
     @OneToMany(mappedBy="dipendente")
     @JsonIgnore

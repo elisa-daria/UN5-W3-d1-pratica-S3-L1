@@ -28,6 +28,11 @@ public class ExHandler {
         return new ListofErrorsDTO(ex.getMessage(), LocalDateTime.now(), errorsMsgs);
 
     }
+    @ExceptionHandler(UnauthorizedEx.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorsPayloadDTO handle401(UnauthorizedEx ex){
+        return new ErrorsPayloadDTO(ex.getMessage(),LocalDateTime.now());
+    }
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsPayloadDTO handle500(Exception ex){
