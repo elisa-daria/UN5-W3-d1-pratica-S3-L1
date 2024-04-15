@@ -2,6 +2,7 @@ package elisadari.UN5W3d1praticaS3L1.services;
 
 import elisadari.UN5W3d1praticaS3L1.entities.Dipendente;
 import elisadari.UN5W3d1praticaS3L1.exceptions.NotFoundEx;
+import elisadari.UN5W3d1praticaS3L1.exceptions.UnauthorizedEx;
 import elisadari.UN5W3d1praticaS3L1.payloads.DipendenteLoginDTO;
 import elisadari.UN5W3d1praticaS3L1.repositories.DipendenteDAO;
 import elisadari.UN5W3d1praticaS3L1.security.JWTTools;
@@ -18,7 +19,7 @@ public class AuthenticationDip {
         if(dipendente.getPw().equals(body.pw())){
             return jwtTools.createToken(dipendente);
         }else {
-            throw
+            throw new UnauthorizedEx("accesso negato, rifare il login");
         }
     }
 }
