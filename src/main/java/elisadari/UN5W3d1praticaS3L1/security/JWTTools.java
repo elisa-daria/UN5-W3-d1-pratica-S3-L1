@@ -1,6 +1,7 @@
 package elisadari.UN5W3d1praticaS3L1.security;
 
 import elisadari.UN5W3d1praticaS3L1.entities.Dipendente;
+import elisadari.UN5W3d1praticaS3L1.exceptions.UnauthorizedEx;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,5 +19,15 @@ public class JWTTools {
                 .subject(String.valueOf(dipendente.getId()))
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
+    }
+    public void verifyToken(String token){
+        try {
+            Jwts.parser()
+                    .verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
+                    .build().parse(token);
+        } catch (Exception ex) {
+            throw new UnauthorizedEx("Problemi col token! Per favore effettua di nuovo il login!");
+        }
+
     }
 }

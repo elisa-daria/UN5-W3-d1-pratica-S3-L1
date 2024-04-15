@@ -6,8 +6,12 @@ import elisadari.UN5W3d1praticaS3L1.exceptions.UnauthorizedEx;
 import elisadari.UN5W3d1praticaS3L1.payloads.DipendenteLoginDTO;
 import elisadari.UN5W3d1praticaS3L1.repositories.DipendenteDAO;
 import elisadari.UN5W3d1praticaS3L1.security.JWTTools;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationDip {
     @Autowired
     DipendentiService dipendentiService;
@@ -22,4 +26,5 @@ public class AuthenticationDip {
             throw new UnauthorizedEx("accesso negato, rifare il login");
         }
     }
+
 }
