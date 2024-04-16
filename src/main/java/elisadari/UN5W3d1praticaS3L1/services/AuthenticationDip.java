@@ -9,6 +9,7 @@ import elisadari.UN5W3d1praticaS3L1.security.JWTTools;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +18,12 @@ public class AuthenticationDip {
     DipendentiService dipendentiService;
     @Autowired
     JWTTools jwtTools;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public String generateToken(DipendenteLoginDTO body){
         Dipendente dipendente=this.dipendentiService.findByEmail(body.email());
-        if(dipendente.getPw().equals(body.pw())){
+        if(passwordEncoder.matches(body.pw(),dipendente.getPw())){
             return jwtTools.createToken(dipendente);
         }else {
             throw new UnauthorizedEx("accesso negato, rifare il login");
