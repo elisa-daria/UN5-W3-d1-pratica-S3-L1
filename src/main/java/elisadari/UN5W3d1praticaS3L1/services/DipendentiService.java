@@ -2,6 +2,7 @@ package elisadari.UN5W3d1praticaS3L1.services;
 
 
 import elisadari.UN5W3d1praticaS3L1.entities.Dipendente;
+import elisadari.UN5W3d1praticaS3L1.enums.TypeOfDipendente;
 import elisadari.UN5W3d1praticaS3L1.exceptions.BadRequestEx;
 import elisadari.UN5W3d1praticaS3L1.exceptions.NotFoundEx;
 import elisadari.UN5W3d1praticaS3L1.payloads.DipendenteRequestDTO;
@@ -45,6 +46,9 @@ public class DipendentiService {
         newDipendente.setSurname(payload.surname());
         newDipendente.setUsername(payload.username());
         newDipendente.setEmail(payload.email());
+        newDipendente.setPw(payload.pw());
+        newDipendente.setTypeOfDipendente(TypeOfDipendente.USER);
+        newDipendente.setProfile_pic("https://ui-avatars.com/api/?name="+ payload.name() + "+" + payload.surname());
         return dipendenteDAO.save(newDipendente);
     }
     //DELETE

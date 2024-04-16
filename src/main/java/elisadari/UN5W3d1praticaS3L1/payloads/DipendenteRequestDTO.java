@@ -1,7 +1,6 @@
 package elisadari.UN5W3d1praticaS3L1.payloads;
 
 
-
 public record DipendenteRequestDTO(
 
         String username,
@@ -10,5 +9,6 @@ public record DipendenteRequestDTO(
 
         String surname,
 
-        String email) {
+        String email,
+        String pw) {
 }
