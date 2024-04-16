@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +22,8 @@ import java.io.IOException;
 public class DipendentiService {
     @Autowired
     private DipendenteDAO dipendenteDAO;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     //GENERIC GET
@@ -46,7 +49,7 @@ public class DipendentiService {
         newDipendente.setSurname(payload.surname());
         newDipendente.setUsername(payload.username());
         newDipendente.setEmail(payload.email());
-        newDipendente.setPw(payload.pw());
+        newDipendente.setPw(passwordEncoder.encode(payload.pw()));
         newDipendente.setTypeOfDipendente(TypeOfDipendente.USER);
         newDipendente.setProfile_pic("https://ui-avatars.com/api/?name="+ payload.name() + "+" + payload.surname());
         return dipendenteDAO.save(newDipendente);
