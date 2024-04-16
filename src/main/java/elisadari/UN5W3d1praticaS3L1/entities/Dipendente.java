@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -18,7 +19,9 @@ import java.util.List;
 @Table(name="dipendenti")
 @Data
 @NoArgsConstructor
-@JsonIgnoreProperties({"pw,typeOfDipendente,dispositivi"})
+@JsonIgnoreProperties({"pw", "typeOfDipendente", "dispositivi", "authorities","enabled", "password","accountNonExpired",
+        "accountNonLocked",
+        "credentialsNonExpired"})
 public class Dipendente implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,6 +32,7 @@ public class Dipendente implements UserDetails {
     private String surname;
     private String email;
     private String pw;
+//    @Enumerated(EnumType.STRING)
     private TypeOfDipendente typeOfDipendente;
     private String profile_pic;
     @OneToMany(mappedBy="dipendente")
@@ -45,7 +49,7 @@ public class Dipendente implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(this.typeOfDipendente.name()));
     }
 
     @Override
